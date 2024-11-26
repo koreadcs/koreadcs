@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>채무조정 지원센터</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+</head>
+<body>
+  <div class="video-background">
+    <video autoplay muted loop playsinline id="myVideo">
+      <source src="play2.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+  </div>
+
+  <nav class="nav-menu">
+    <div class="container">
+      <div class="menu-items">
+        <a href="#top">홈</a>
+        <a href="#services">서비스</a>
+        <a href="#consultation">상담예약</a>
+        <a href="#success">성공사례</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero 섹션 -->
+  <section class="hero">
+    <div class="hero-overlay" style="padding-top: 1px;">
+      <h1>새로운 시작을 위한 첫걸음</h1>
+      <p>전문적인 법률 상담으로 당신의 미래를 지원합니다.</p>
+      <button onclick="openModal()" aria-label="무료 상담 신청하기">간편 무료 진단</button>
+    </div>
+  </section>
+
+  <!-- 모달 팝업 -->
+  <div class="modal" id="diagnosis-modal" role="dialog" aria-labelledby="modal-title" aria-modal="true">
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()" aria-label="모달 닫기">
+        <span aria-hidden="true">×</span>
+      </button>
+      <h2 id="modal-title">채무조정 상담이 처음이신가요?</h2>
+      <div id="step-content"></div>
+      <div class="progress-bar">
+        <div class="progress" id="progress"></div>
+      </div>
+      <div class="buttons">
+        <button id="prev-btn" class="btn btn-secondary" style="display: none;">이전 단계</button>
+        <button id="next-btn" class="btn" disabled>다음 단계</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 서비스 섹션 -->
+  <section id="services" class="section services-section">
+    <div class="container">
+      <h2>서비스 안내</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <i class="fas fa-comments"></i>
+          <h3>전문 상담</h3>
+          <p>개인별 맞춤 상담을 통한 최적의 해결방안 제시</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-handshake"></i>
+          <h3>법률사무소 연계</h3>
+          <p>신뢰할 수 있는 법률사무소 및 법무법인 연결</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-shield-alt"></i>
+          <h3>사후관리</h3>
+          <p>해결 후에도 지속적인 관리와 지원</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-gavel"></i>
+          <h3>채권추심 방어</h3>
+          <p>불법 채권추심으로부터 안전한 보호와 대응</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-file-contract"></i>
+          <h3>개인회생 지원</h3>
+          <p>개인회생 절차 무료 상담 및 전문가 연계</p>
+        </div>
+        <div class="service-card">
+          <i class="fas fa-balance-scale"></i>
+          <h3>법률자문</h3>
+          <p>전문 변호사의 맞춤형 법률 자문 서비스</p>
+        </div>
+      </div>
+    </div>
+  </section>
+ <!-- 상담예약 섹션 -->
+  <section id="consultation" class="section consultation-section">
+    <div class="container">
+      <h2>상담예약</h2>
+      <div class="consultation-form">
+        <form id="consultationForm">
+          <div class="form-group">
+            <label for="consult-name">성함</label>
+            <input type="text" id="consult-name" required>
+          </div>
+          <div class="form-group">
+            <label for="consult-phone">연락처</label>
+            <input type="tel" id="consult-phone" required>
+          </div>
+          <div class="form-group">
+            <label for="consult-date">상담희망일</label>
+            <input type="date" id="consult-date" required>
+          </div>
+          <div class="form-group">
+            <label for="consult-time">상담희망시간</label>
+            <select id="consult-time" required>
+              <option value="">선택해주세요</option>
+              <option value="08:00">09:00</option>
+              <option value="09:00">10:00</option>
+              <option value="10:00">11:00</option>
+              <option value="11:00">12:00</option>
+              <option value="13:00">14:00</option>
+              <option value="14:00">15:00</option>
+              <option value="15:00">16:00</option>
+              <option value="16:00">17:00</option>
+              <option value="17:00">18:00</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="consult-message">상담내용</label>
+            <textarea id="consult-message" rows="4"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">상담 예약하기</button>
+        </form>
+      </div>
+      
+      <!-- FAQ 섹션을 여기로 이동 -->
+      <div class="faq-section">
+        <h2>자주 묻는 질문</h2>
+        <div class="faq-container">
+          <div class="faq-item">
+            <div class="faq-question">
+              1. 채무 조정시 불이익은 뭔가요?
+              <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              <p>조정받는 기간 동안은 잠시<br>
+              대출신청 및 신용카드 개설이 어렵습니다<br>
+              '단' 13회차(1년) 이상 납부시 성실납부자 대상으로<br>
+              대출상품이 존재하며 소액한도로<br>
+              신용카드 개설도 가능합니다</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              2. 가족이나 직장에서 알게될까 걱정되요
+              <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              <p>빠른 대처로 채권추심금지명령을 통해<br>
+              전화 및 우편,방문, 압류 등 모든 채권추심을<br>
+              막아드립니다</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              3. 핸드폰 통장 등 본인명의 다 못쓰나요?
+              <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              <p>체크카드 및 핸드폰 개설 및 사용이 가능하고<br>
+              통장 또한 압류되지 않도록 막아서<br>
+              사용가능하게 도와드립니다</p>
+            </div>
+          </div>
+          
+          <div class="faq-item">
+            <div class="faq-question">
+              4. 신용불량자가 되는건가요?
+              <span class="arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+              <p>그렇지 않습니다 조정받는 기간 중에도<br>
+              신용점수가 회복됩니다</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 성공사례 섹션 -->
+  <section id="success" class="section success-section">
+    <div class="container">
+      <h2>성공사례</h2>
+      <div class="success-grid">
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase1.jpg" alt="성공사례 1" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 157,255,659원</h3>
+            <p>86%탕감(134,808,903) 월 변제금 631,988원</p>
+          </div>
+        </div>
+        <!-- 추가 성공사례 예시 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase2.jpg" alt="성공사례 2" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 52,011,380원</h3>
+            <p>77%탕감(40,284,560원) 월 변제금 325,745원</p>
+          </div>
+        </div>
+  <!-- 추가 성공사례 예시 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase3.jpg" alt="성공사례 3" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 122,207,696원</h3>
+            <p>77%탕감(93,334,436원) 두번째회생 월 변제금 802,035원</p>
+          </div>
+        </div>
+  <!-- 추가 성공사례 예시 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase4.jpg" alt="성공사례 4" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 108,281,772원</h3>
+            <p>81%탕감(93,341,772원) 월 변제금 415,000원</p>
+          </div>
+        </div>
+  <!-- 추가 성공사례 예시 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase5.jpg" alt="성공사례 5" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 68,937,550원</h3>
+            <p>80%탕감(54,497,550원) 월 변제금 240,000원</p>
+          </div>
+        </div>
+  <!-- 추가 성공사례 예시 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase6.jpg" alt="성공사례 6" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 83,013,515원</h3>
+            <p>86%탕감(71,479,331원) 월 변제금 320,394원</p>
+          </div>
+        </div>
+        <!-- case7 추가 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase7.jpg" alt="성공사례 7" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 87,973,947원</h3>
+            <p>84%탕감(74,293,947원) 월 변제금 380,000원</p>
+          </div>
+        </div>
+        <!-- case8 추가 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase8.jpg" alt="성공사례 8" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 100,823,870원</h3>
+            <p>94%탕감(94,800,242원) 월 변제금 167,323원</p>
+          </div>
+        </div>
+        <!-- case9 추가 -->
+        <div class="success-case">
+          <div class="case-image">
+            <img src="images/ccase9.jpg" alt="성공사례 9" onerror="this.src='images/default-case.jpg'">
+          </div>
+          <div class="case-info">
+            <h3>총채무금액 841,501,027원</h3>
+            <p>95%탕감(796,049,827원) 월 변제금 757,520원</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 푸터 -->
+  <footer>
+    <div class="container">
+      <p>© 2024 채무조정 지원센터 모든 권리 보유.</p>
+    </div>
+  </footer>
+
+  <!-- main.js 파일 연결 수정 -->
+  <script src="java/main.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3.11.0/dist/email.min.js"></script>
+  <script>
+    // emailjs 초기화 코드 수정
+    (function() {
+      emailjs.init('NwKEG-8OlHeKR20mA');
+    })();
+
+    const modal = document.getElementById('diagnosis-modal');
+    const steps = [
+      { title: "채무조정 상담이 처음이신가요?", options: ["예", "아니오"], type: "radio" },
+      { title: "나이를 선택해주세요", options: ["20대", "30대", "40대", "50대 이상"], type: "radio" },
+      { title: "결혼 여부를 선택해주세요", options: ["미혼", "기혼"], type: "radio" },
+      { title: "부양가족 수는 몇 명인가요?", options: ["없음", "1명", "2명", "3명", "4명", "5명 이상"], type: "radio" },
+      { title: "직업의 종류를 선택해 주세요", options: ["급여소득자", "자영업자", "일용직/프리랜서", "기타"], type: "radio" },
+      { title: "재직 기간을 선택해 주세요", options: ["1~3개월", "3~6개월", "6~12개월", "12개월 이상"], type: "radio" },
+      { title: "월 평균 수입을 선택해 주세요", options: ["소득없음", "100만원~200만원", "200만원~300만원", "300만원 이상"], type: "radio" },
+      { title: "거주형태를 선택해 주세요", options: ["자가", "전세", "월세"], type: "radio" },
+      { title: "모든 채무의 합계를 선택해주세요", options: ["1000만원~5000만원", "5000만원~1억", "1억 이상", "모르겠음"], type: "radio" },
+      { title: "회생 또는 파산 경험이 있으신가요?", options: ["예", "아니오"], type: "radio" },
+      { title: "희망하는 상담 간을 선택해 주세요", options: ["09:00~11:00", "11:00~13:00", "13:00~15:00", "15:00~17:00", "17:00~19:00", "19:00~21:00"], type: "checkbox" },
+      { title: "성함과 연락처를 입력해 주세요", fields: [{ label: "성함", type: "text", id: "name" }, { label: "연락처", type: "tel", id: "phone" }], type: "form" },
+    ];
+
+    let currentStep = 0;
+    let collectedData = [];
+
+    function openModal() {
+      resetModal();
+      modal.style.display = 'flex';
+      renderStep();
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    function updateProgress() {
+      document.getElementById('progress').style.width = `${((currentStep + 1) / steps.length) * 100}%`;
+    }
+
+    function renderStep() {
+      const step = steps[currentStep];
+      const stepContent = document.getElementById('step-content');
+      const nextBtn = document.getElementById('next-btn');
+      const prevBtn = document.getElementById('prev-btn');
+
+      document.getElementById('modal-title').textContent = step.title;
+      
+      stepContent.innerHTML = '';
+      nextBtn.disabled = true;
+
+      if (step.type === 'form') {
+        step.fields.forEach(field => {
+          const inputWrapper = document.createElement('div');
+          inputWrapper.className = 'input-wrapper';
+          inputWrapper.innerHTML = `
+            <label for="${field.id}">${field.label}</label>
+            <input type="${field.type}" id="${field.id}" required />
+          `;
+          stepContent.appendChild(inputWrapper);
+        });
+        
+        // 폼 입력 필드들의 변경사항 감지
+        const inputs = stepContent.querySelectorAll('input');
+        inputs.forEach(input => {
+          input.addEventListener('input', () => {
+            // 모든 입력 필드가 채워져 있는지 확인
+            const allFilled = Array.from(inputs).every(input => input.value.trim() !== '');
+            nextBtn.disabled = !allFilled;
+          });
+        });
+
+        document.getElementById('phone')?.addEventListener('blur', formatPhoneNumber);
+      } else {
+        const optionContainer = document.createElement('div');
+        optionContainer.className = 'option-container';
+
+        step.options.forEach(option => {
+          const label = document.createElement('label');
+          label.className = 'option';
+          label.innerHTML = `<input type="${step.type}" name="step-${currentStep}" value="${option}" /> ${option}`;
+          label.querySelector('input').addEventListener('change', () => nextBtn.disabled = false);
+          optionContainer.appendChild(label);
+        });
+
+        stepContent.appendChild(optionContainer);
+      }
+
+      prevBtn.style.display = currentStep > 0 ? 'inline-block' : 'none';
+      nextBtn.textContent = currentStep === steps.length - 1 ? '제출' : '다음 단계';
+      updateProgress();
+    }
+
+    function formatPhoneNumber(event) {
+      let input = event.target.value.replace(/\D/g, '');
+      if (input.length >= 10) {
+        input = input.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3');
+      }
+      event.target.value = input;
+    }
+
+    function collectStepData() {
+      const step = steps[currentStep];
+      const stepData = { 
+        question: step.title, 
+        answer: []
+      };
+
+      if (step.type === 'form') {
+        step.fields.forEach(field => {
+          const value = document.getElementById(field.id)?.value || '';
+          stepData.answer.push(value);
+        });
+      } else {
+        const checkedInputs = document.querySelectorAll(`input[name="step-${currentStep}"]:checked`);
+        checkedInputs.forEach(input => {
+          stepData.answer.push(input.value);
+        });
+      }
+
+      collectedData[currentStep] = stepData;
+    }
+
+    function sendEmail() {
+      const loading = document.querySelector('.loading');
+      loading.style.display = 'flex';
+
+      // 수집된 데이터 형식 변환
+      const formattedData = collectedData.map(data => {
+        return {
+          question: data.question,
+          answer: Array.isArray(data.answer) ? data.answer.join(', ') : data.answer
+        };
+      });
+
+      // 이메일 템플릿에 맞게 데이터 구성
+      const templateParams = {
+        name: formattedData.find(data => data.question.includes('성함'))?.answer || '',
+        phone: formattedData.find(data => data.question.includes('연락처'))?.answer || '',
+        responses: formattedData.map(data => 
+          `Q: ${data.question}\nA: ${data.answer}`
+        ).join('\n\n')
+      };
+
+      // 이메일 전송
+      emailjs.send('service_59b8f2h', 'template_eqnti8r', templateParams)
+        .then(() => {
+          loading.style.display = 'none';
+          alert('진단이 성공적으로 접수되었습니다. 곧 연락드리겠습니다.');
+          closeModal();
+          resetModal();
+        })
+        .catch(error => {
+          console.error('이메일 전송 실패:', error);
+          loading.style.display = 'none';
+          alert('진단 접수 중 문제가 발생했습니다. 다시 시도해주세요.');
+        });
+    }
+
+    function resetModal() {
+      currentStep = 0;
+      collectedData = [];
+    }
+
+    // "다음" 버튼 클릭 시 동
+    document.getElementById('next-btn').addEventListener('click', () => {
+      collectStepData();  // 현재 질문의 답을 수집
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        renderStep();  // 다음 단계로 넘어���기
+      } else {
+        sendEmail();  // 마지막 단계에서는 이메일 송
+      }
+    });
+
+    // "이" 버튼 클릭 시 동작
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      if (currentStep > 0) {
+        currentStep--;
+        renderStep();  // 이전 단계로 돌아가기
+      }
+    });
+
+    // 오른쪽 클릭 방지 코드 추가
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();  // 기본 오른쪽 클릭 메뉴 방지
+    });
+
+    // 디바운스 함수 개선
+    const debounce = (func, wait) => {
+      let timeoutId;
+      return (...args) => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func.apply(null, args), wait);
+      };
+    };
+
+    // 스크롤 이벤트 최적화
+    const handleScroll = debounce(() => {
+      const navbar = document.querySelector('.nav-menu');
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, 100);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    // 기존 스크립트 코드 위에 추가
+    window.addEventListener('load', function() {
+      if (window.innerWidth <= 768) {
+        window.scrollTo(0, 0);
+      }
+    });
+  </script>
+  <div class="loading">
+    <div class="loading-spinner"></div>
+  </div>
+</body>
+</html>
