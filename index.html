@@ -711,6 +711,43 @@
                 });
             });
         });
+
+        // 상담 섹션 버튼 클릭 이벤트 트래킹 추가
+        document.querySelector('.consultation-form .cta-button').addEventListener('click', function() {
+            gtag('event', 'consultation_section_button_click', {
+                'event_category': 'conversion',
+                'event_label': 'consultation_section_cta',
+                'value': 1
+            });
+        });
+
+        // 상담 폼 입력 필드 추적
+        const formInputs = document.querySelectorAll('.consultation-form input, .consultation-form textarea');
+        formInputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                gtag('event', 'form_field_focus', {
+                    'event_category': 'form_interaction',
+                    'event_label': input.name || input.id
+                });
+            });
+        });
+
+        // 상담 폼 작성 진행률 추적
+        let formProgress = new Set();
+        formInputs.forEach(input => {
+            input.addEventListener('change', function() {
+                if (input.value.trim() !== '') {
+                    formProgress.add(input.name || input.id);
+                    const progressPercent = (formProgress.size / formInputs.length) * 100;
+                    
+                    gtag('event', 'form_completion_progress', {
+                        'event_category': 'form_interaction',
+                        'event_label': 'form_progress',
+                        'value': Math.round(progressPercent)
+                    });
+                }
+            });
+        });
     </script>
 </body>
 </html>
