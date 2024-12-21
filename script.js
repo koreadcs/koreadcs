@@ -79,7 +79,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const stats = document.querySelectorAll('.stat-number');
         
         stats.forEach(stat => {
-            const target = parseFloat(stat.textContent);
+            const originalText = stat.textContent;
+            const hasPlus = originalText.includes('+');
+            const hasComma = originalText.includes(',');
+            let target = parseFloat(originalText.replace(/[+,]/g, ''));
+            
             let current = 0;
             const increment = target / 50; // 50 steps
             const duration = 1500; // 1.5 seconds
@@ -88,14 +92,17 @@ document.addEventListener('DOMContentLoaded', function() {
             const updateNumber = () => {
                 current += increment;
                 if (current <= target) {
-                    if (stat.textContent.includes('+')) {
-                        stat.textContent = Math.floor(current) + '+';
-                    } else if (stat.textContent.includes('%')) {
-                        stat.textContent = Math.floor(current) + '%';
-                    } else {
-                        stat.textContent = Math.floor(current);
+                    let displayNumber = Math.floor(current);
+                    if (hasComma) {
+                        displayNumber = displayNumber.toLocaleString();
                     }
+                    if (hasPlus) {
+                        displayNumber = displayNumber + '+';
+                    }
+                    stat.textContent = displayNumber;
                     setTimeout(updateNumber, stepTime);
+                } else {
+                    stat.textContent = originalText; // 최종적으로 원래 텍스트로 복원
                 }
             };
             
@@ -223,7 +230,7 @@ function hideModal(modalId) {
 
 function formatPhoneNumber(e) {
     let number = e.target.value.replace(/[^0-9]/g, '');
-    if (number.length > 11) number = number.slice(0, 11);
+    if (number.length > 13) number = number.slice(0, 13);
     
     if (number.length > 3 && number.length <= 7) {
         number = number.substring(0,3) + '-' + number.substring(3);

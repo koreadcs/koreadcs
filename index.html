@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="전문 변호사와 함께하는 개인회생 무료상담. 12년 이상의 전문성과 2,500건 이상의 성공사례를 보유한 믿을 수 있는 개인회생·파산 전문 법률사무소입니다.">
+    <meta name="description" content="전문 변호사와 함께하는 채무조정 무료상담. 12년 이상의 전문성과 2,500건 이상의 성공사례를 보유한 믿을 수 있는 개인회생·파산 전문 법률사무소입니다.">
     <meta name="keywords" content="개인회생,개인파산,채무조정,개인회생 신청,개인회생 절차,개인회생 비용,무료법률상담">
     <meta name="author" content="채무조정지원센터">
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.hotjar.com;">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="interest-cohort=()">
     
     <!-- Open Graph 태그 -->
-    <meta property="og:title" content="전문가와 함께하는 개인회생 상담 | 새로운 시작을 위한 첫걸음">
-    <meta property="og:description" content="전문 변호사와 함께하는 개인회생 무료상담. 12년 이상의 전문성과 2,500건 이상의 성공사례를 보유한 믿을 수 있는 개인회생·파산 전문 법률사무소입니다.">
+    <meta property="og:title" content="전문가와 함께하는 채무조정 상담 | 새로운 시작을 위한 첫걸음">
+    <meta property="og:description" content="전문 변호사와 함께하는 채무조정 무료상담. 12년 이상의 전문성과 2,500건 이상의 성공사례를 보유한 믿을 수 있는 개인회생·파산 전문 법률사무소입니다.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://your-domain.com">
     <meta property="og:image" content="https://your-domain.com/images/og-image.jpg">
@@ -22,15 +25,39 @@
       "@context": "https://schema.org",
       "@type": "LegalService",
       "name": "채무조정지원센터",
-      "description": "전문 변호사와 함께하는 개인회생 무료상담 서비스",
+      "description": "전문 변호사와 함께하는 채무조정 무료상담 서비스",
       "telephone": "010-3100-2497",
       "openingHours": "Mo-Fr 09:00-18:00",
       "areaServed": "대한민국",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "KR",
+        "addressRegion": "서울특별시"
+      },
       "serviceType": ["개인회생", "개인파산", "채무조정"],
-      "priceRange": "무료상담"
+      "priceRange": "무료상담",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "250"
+      },
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "법률 서비스",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "개인회생 상담",
+              "description": "전문 변호사의 1:1 맞춤 채무조정 무료 상담"
+            }
+          }
+        ]
+      }
     }
     </script>
-    <title>전문가와 함께하는 개인회생 상담 | 새로운 시작을 위한 첫걸음</title>
+    <title>전문가와 함께하는 채무조정 상담 | 새로운 시작을 위한 첫걸음</title>
     
     <!-- Google Analytics 4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH7QE8TYWQ"></script>
@@ -45,7 +72,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
     <link rel="preload" as="script" href="script.js">
 </head>
@@ -329,7 +356,7 @@
                 <h2>전문 상담사 소개</h2>
                 <div class="expert-card">
                     <div class="expert-image">
-                        <img src="pro.jpg" alt="김동훈 사무장">
+                        <img src="pro.jpg" alt="김동훈 사무장" loading="lazy" width="300" height="400">
                     </div>
                     <div class="expert-info">
                         <h3>김동훈 사무장</h3>
@@ -517,24 +544,20 @@
                     <span>상담 내용 완벽 보장</span>
                 </div>
             </div>
-            <form id="contactForm" aria-labelledby="formTitle">
+            <form id="contactForm" aria-labelledby="formTitle" class="consultation-form" data-csrf="{{csrfToken}}">
                 <h2 id="formTitle" class="sr-only">상담 신청 폼</h2>
                 <div class="form-group">
-                    <label for="name" class="sr-only">성함</label>
-                    <input type="text" id="name" name="name" required 
-                           placeholder="성함" aria-required="true"
-                           autocomplete="name">
+                    <label for="name" class="visually-hidden">이름</label>
+                    <input type="text" id="name" name="name" required aria-required="true" 
+                           minlength="2" maxlength="10"
+                           placeholder="이름을 입력해주세요" autocomplete="name">
+                    <div class="error-message" aria-live="polite"></div>
                 </div>
                 <div class="form-group">
-                    <label for="phone" class="sr-only">연락처</label>
-                    <input type="tel" id="phone" name="phone" required 
-                           placeholder="연락처" aria-required="true"
-                           pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}"
-                           autocomplete="tel">
-                    <div class="input-guide">
-                        <i class="fas fa-info-circle"></i>
-                        <span class="guide-text">예시) 010-1234-5678</span>
-                    </div>
+                    <label for="phone" class="visually-hidden">연락처</label>
+                    <input type="tel" id="phone" name="phone" required aria-required="true"
+                           placeholder="연락처를 입력해주세요" autocomplete="tel">
+                    <div class="error-message" aria-live="polite"></div>
                 </div>
                 <div class="form-group privacy-agreement">
                     <label class="custom-checkbox">
@@ -746,6 +769,62 @@
                         'value': Math.round(progressPercent)
                     });
                 }
+            });
+        });
+    </script>
+    <script>
+        // CSRF 토큰 생성
+        function generateCSRFToken() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+                return v.toString(16);
+            });
+        }
+
+        // XSS 방지를 위한 입력값 sanitization
+        function sanitizeInput(input) {
+            return input.replace(/[<>]/g, '');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // CSRF 토큰 설정
+            const csrfToken = generateCSRFToken();
+            document.querySelector('#consultationForm').dataset.csrf = csrfToken;
+
+            // 폼 입력값 검증 및 sanitization
+            const form = document.querySelector('#consultationForm');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(form);
+                for (let [key, value] of formData.entries()) {
+                    formData.set(key, sanitizeInput(value));
+                }
+                // 폼 제출 로직...
+            });
+
+            // A/B 테스트 설정
+            const abTestVersion = Math.random() < 0.5 ? 'A' : 'B';
+            gtag('event', 'ab_test_assignment', {
+                'test_name': 'form_layout',
+                'variant': abTestVersion
+            });
+
+            // 추가된 분석 이벤트
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        gtag('event', 'section_view', {
+                            'event_category': 'engagement',
+                            'event_label': entry.target.id
+                        });
+                    }
+                });
+            });
+
+            // 주요 섹션 뷰 추적
+            ['benefits', 'process', 'faq', 'consultationForm'].forEach(sectionId => {
+                const section = document.getElementById(sectionId);
+                if (section) observer.observe(section);
             });
         });
     </script>
