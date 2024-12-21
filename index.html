@@ -3,15 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="전문 변호사와 함께하는 개인회생 무료상담. 12년 이상의 전문성과 2,500건 이상의 성공사례를 보유한 믿을 수 있는 개인회생·파산 전문 법률사무소입니다.">
+    <meta name="keywords" content="개인회생,개인파산,채무조정,개인회생 신청,개인회생 절차,개인회생 비용,무료법률상담">
+    <meta name="author" content="채무조정지원센터">
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com;">
+    
+    <!-- Open Graph 태그 -->
+    <meta property="og:title" content="전문가와 함께하는 개인회생 상담 | 새로운 시작을 위한 첫걸음">
+    <meta property="og:description" content="전문 변호사와 함께하는 개인회생 무료상담. 12년 이상의 전문성과 2,500건 이상의 성공사례를 보유한 믿을 수 있는 개인회생·파산 전문 법률사무소입니다.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta property="og:image" content="https://your-domain.com/images/og-image.jpg">
+    
+    <!-- Schema.org 구조화된 데이터 -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LegalService",
+      "name": "채무조정지원센터",
+      "description": "전문 변호사와 함께하는 개인회생 무료상담 서비스",
+      "telephone": "010-3100-2497",
+      "openingHours": "Mo-Fr 09:00-18:00",
+      "areaServed": "대한민국",
+      "serviceType": ["개인회생", "개인파산", "채무조정"],
+      "priceRange": "무료상담"
+    }
+    </script>
     <title>전문가와 함께하는 개인회생 상담 | 새로운 시작을 위한 첫걸음</title>
+    
+    <!-- Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZH7QE8TYWQ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-ZH7QE8TYWQ');
+    </script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preload" as="style" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/your-code.js" crossorigin="anonymous"></script>
+    <link rel="preload" as="script" href="script.js">
 </head>
 <body>
-    <header class="header">
-        <nav class="nav-container">
+    <header class="header" role="banner">
+        <nav class="nav-container" role="navigation">
             <div class="logo">채무조정지원센터</div>
             <div class="contact-info">
                 <div class="business-hours">
@@ -25,7 +65,14 @@
         </nav>
     </header>
 
-    <main>
+    <nav class="breadcrumb" aria-label="breadcrumb">
+        <ul>
+            <li><a href="/">홈</a></li>
+            <li>개인회생 상담</li>
+        </ul>
+    </nav>
+
+    <main role="main">
         <section class="hero">
             <div class="hero-content">
                 <h1>
@@ -551,6 +598,119 @@
             emailjs.init("NwKEG-8OlHeKR20mA");
         })();
     </script>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
+    <script>
+        // 이미지 지연 로딩
+        document.addEventListener('DOMContentLoaded', function() {
+            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
+
+            if ("IntersectionObserver" in window) {
+                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            let lazyImage = entry.target;
+                            lazyImage.src = lazyImage.dataset.src;
+                            lazyImage.classList.remove("lazy");
+                            lazyImageObserver.unobserve(lazyImage);
+                        }
+                    });
+                });
+
+                lazyImages.forEach(function(lazyImage) {
+                    lazyImageObserver.observe(lazyImage);
+                });
+            }
+        });
+
+        // 404 에러 처리
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IMG') {
+                e.target.src = 'fallback-image.jpg';
+            }
+        }, true);
+    </script>
+    <script>
+        // 이벤트 트래킹 구현
+        document.addEventListener('DOMContentLoaded', function() {
+            // 전화 버튼 클릭 추적
+            document.querySelector('.phone-number').addEventListener('click', function() {
+                gtag('event', 'phone_call', {
+                    'event_category': 'engagement',
+                    'event_label': 'header_phone_button'
+                });
+            });
+
+            // 상담 신청 버튼 클릭 추적
+            document.querySelector('.cta-button').addEventListener('click', function() {
+                gtag('event', 'consultation_request', {
+                    'event_category': 'conversion',
+                    'event_label': 'hero_section'
+                });
+            });
+
+            // 상담 폼 제출 추적
+            document.querySelector('#consultationForm form').addEventListener('submit', function() {
+                gtag('event', 'form_submission', {
+                    'event_category': 'conversion',
+                    'event_label': 'consultation_form'
+                });
+            });
+
+            // FAQ 클릭 추적
+            document.querySelectorAll('.faq-question').forEach(function(faq) {
+                faq.addEventListener('click', function() {
+                    gtag('event', 'faq_click', {
+                        'event_category': 'engagement',
+                        'event_label': this.querySelector('span').textContent
+                    });
+                });
+            });
+
+            // 스크롤 깊이 추적
+            let scrollDepthTriggered = new Set();
+            window.addEventListener('scroll', function() {
+                const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
+                const depths = [25, 50, 75, 100];
+                
+                depths.forEach(depth => {
+                    if (scrollPercent >= depth && !scrollDepthTriggered.has(depth)) {
+                        scrollDepthTriggered.add(depth);
+                        gtag('event', 'scroll_depth', {
+                            'event_category': 'engagement',
+                            'event_label': `${depth}%_scroll_depth`
+                        });
+                    }
+                });
+            });
+
+            // 체류 시간 추적
+            let startTime = Date.now();
+            let timeIntervals = [30, 60, 120, 300]; // 초 단위
+            let triggeredIntervals = new Set();
+
+            setInterval(function() {
+                let timeSpent = Math.floor((Date.now() - startTime) / 1000);
+                timeIntervals.forEach(interval => {
+                    if (timeSpent >= interval && !triggeredIntervals.has(interval)) {
+                        triggeredIntervals.add(interval);
+                        gtag('event', 'time_spent', {
+                            'event_category': 'engagement',
+                            'event_label': `${interval}s_on_site`
+                        });
+                    }
+                });
+            }, 1000);
+        });
+
+        // 외부 링크 클릭 추적
+        document.querySelectorAll('a[href^="http"]').forEach(function(link) {
+            link.addEventListener('click', function() {
+                gtag('event', 'external_link_click', {
+                    'event_category': 'outbound',
+                    'event_label': this.href
+                });
+            });
+        });
+    </script>
 </body>
 </html>

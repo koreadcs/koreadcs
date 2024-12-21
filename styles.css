@@ -1671,3 +1671,124 @@ input::placeholder, textarea::placeholder {
 #officeHoursModal .modal-close:hover {
     color: #2c3e50;
 }
+
+/* 모바일 최적화 및 UX 개선을 위한 CSS 수정 */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero .highlight-text {
+        font-size: 2.2rem;
+    }
+
+    .benefits-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .nav-container {
+        padding: 0.8rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .contact-info .phone-number {
+        font-size: 1.5rem;
+        padding: 0.5rem 1rem;
+        background: var(--accent-color);
+        color: white;
+        border-radius: 25px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+
+    /* 터치 타겟 크기 최적화 */
+    button, 
+    a,
+    .faq-question {
+        min-height: 44px;
+        padding: 12px;
+    }
+}
+
+/* 사용자 경험 개선 */
+.breadcrumb {
+    padding: 1rem 2rem;
+    background: var(--light-gray);
+    margin-top: 60px;
+}
+
+.breadcrumb ul {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: '>';
+    margin-left: 0.5rem;
+    color: var(--secondary-color);
+}
+
+/* 성능 최적화 */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 로딩 상태 표시 */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 접근성 개선 */
+:focus {
+    outline: 3px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* 스크롤 부드럽게 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 다크모드 지원 */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #34495e;
+        --text-color: #f5f6fa;
+        --light-gray: #2c3e50;
+        --white: #1a1a1a;
+    }
+
+    body {
+        background-color: var(--white);
+    }
+
+    .benefit-card {
+        background: #2c3e50;
+    }
+}
