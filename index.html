@@ -107,7 +107,7 @@
                     <span class="hero-text-line">고객님의 채무를 조정 해드립니다.</span>
                 </h1>
                 <p class="highlight-text">100% 무료상담</p>
-                <button class="cta-button" onclick="scrollToForm()">무료 상담 신청하기</button>
+                <button class="cta-button" data-scroll-to="consultation-section">무료 상담 신청하기</button>
             </div>
         </section>
 
@@ -372,65 +372,6 @@
             </div>
         </section>
 
-        <section class="success-cases">
-            <h2>성공 사례</h2>
-            <div class="statistics">
-                <div class="stat-item">
-                    <span class="stat-number">98%</span>
-                    <span class="stat-label">개인회생 인가율</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">2500+</span>
-                    <span class="stat-label">누적 상담 건수</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">13+</span>
-                    <span class="stat-label">전문 상담 경력(년)</span>
-                </div>
-            </div>
-            <div class="testimonials">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="case-summary">
-                            <span class="case-tag">카드빚/대출</span>
-                            <h3>6천만원 채무, 월 65만원으로 해결</h3>
-                        </div>
-                        <p class="case-detail">"카드빚과 대출로 6천만원의 채무가 있었지만, 개인회생을 통해 월 65만원씩 3년간 상환하는 조건으로 나머지 채무를 탕감받았습니다. 이제는 안정적인 생활이 가능해졌습니다."</p>
-                        <div class="client-info">
-                            <span class="client-profile">40대 직장인 K님</span>
-                            <span class="payment-info">월 상환액 65만원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="case-summary">
-                            <span class="case-tag">사업실패</span>
-                            <h3>자영업 실패 후 1.2억 채무 해결</h3>
-                        </div>
-                        <p class="case-detail">"자영업 실패로 1.2억의 채무가 발생했지만, 전문가의 도움으로 개인회생을 신청했습니다. 월 85만원씩 5년 변제 조건으로 인가를 받아 새로운 시작을 할 수 있게 되었습니다."</p>
-                        <div class="client-info">
-                            <span class="client-profile">50대 자영업자 L님</span>
-                            <span class="payment-info">월 상환액 85만원</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="case-summary">
-                            <span class="case-tag">급여소득자</span>
-                            <h3>4천만원 채무, 월 45만원으로 조정</h3>
-                        </div>
-                        <p class="case-detail">"급여생활자로 연체가 걱정되어 고민하다가 상담을 받았습니다. 4천만원의 채무를 월 45만원씩 3년 변제하는 조건으로 개인회생 인가를 받아 안정적인 생활이 가능해졌습니다."</p>
-                        <div class="client-info">
-                            <span class="client-profile">30대 회사원 P님</span>
-                            <span class="payment-info">월 상환액 45만원</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <section class="faq">
             <h2>자주 묻는 질문</h2>
             <div class="faq-container">
@@ -528,52 +469,110 @@
             </div>
         </section>
 
-        <section class="consultation-form" id="consultationForm">
-            <h2>무료 상담 신청</h2>
-            <div class="consultation-benefits">
-                <div class="benefit-item">
-                    <i class="fas fa-check-circle"></i>
-                    <span>모든 상담 무료</span>
+        <section class="success-cases">
+            <h2>성공 사례</h2>
+            <div class="statistics">
+                <div class="stat-item">
+                    <span class="stat-number">98%</span>
+                    <span class="stat-label">개인회생 인가율</span>
                 </div>
-                <div class="benefit-item">
-                    <i class="fas fa-clock"></i>
-                    <span>30분 이내 답변(주말 제외)</span>
+                <div class="stat-item">
+                    <span class="stat-number">2500+</span>
+                    <span class="stat-label">누적 상담 건수</span>
                 </div>
-                <div class="benefit-item">
-                    <i class="fas fa-lock"></i>
-                    <span>상담 내용 완벽 보장</span>
+                <div class="stat-item">
+                    <span class="stat-number">12+</span>
+                    <span class="stat-label">전문 상담 경력(년)</span>
                 </div>
             </div>
-            <form id="contactForm" aria-labelledby="formTitle" class="consultation-form" data-csrf="{{csrfToken}}">
-                <h2 id="formTitle" class="sr-only">상담 신청 폼</h2>
-                <div class="form-group">
-                    <label for="name" class="visually-hidden">이름</label>
-                    <input type="text" id="name" name="name" required aria-required="true" 
-                           minlength="2" maxlength="10"
-                           placeholder="이름을 입력해주세요" autocomplete="name">
-                    <div class="error-message" aria-live="polite"></div>
+            <div class="testimonials">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="case-summary">
+                            <span class="case-tag">카드빚/대출</span>
+                            <h3>6천만원 채무, 월 65만원으로 해결</h3>
+                        </div>
+                        <p class="case-detail">"카드빚과 대출로 6천만원의 채무가 있었지만, 개인회생을 통해 월 65만원씩 3년간 상환하는 조건으로 나머지 채무를 탕감받았습니다. 이제는 안정적인 생활이 가능해졌습니다."</p>
+                        <div class="client-info">
+                            <span class="client-profile">40대 직장인 K님</span>
+                            <span class="payment-info">월 상환액 65만원</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="phone" class="visually-hidden">연락처</label>
-                    <input type="tel" id="phone" name="phone" required aria-required="true"
-                           placeholder="연락처를 입력해주세요" autocomplete="tel">
-                    <div class="error-message" aria-live="polite"></div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="case-summary">
+                            <span class="case-tag">사업실패</span>
+                            <h3>자영업 실패 후 1.2억 채무 해결</h3>
+                        </div>
+                        <p class="case-detail">"자영업 실패로 1.2억의 채무가 발생했지만, 전문가의 도움으로 개인회생을 신청했습니다. 월 85만원씩 5년 변제 조건으로 인가를 받아 새로운 시작을 할 수 있게 되었습니다."</p>
+                        <div class="client-info">
+                            <span class="client-profile">50대 자영업자 L님</span>
+                            <span class="payment-info">월 상환액 85만원</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group privacy-agreement">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" required aria-required="true">
-                        <span class="checkmark"></span>
-                        <span class="agreement-text">개인정보 수집 및 이용에 동의합니다</span>
-                        <button type="button" class="privacy-detail-btn" aria-label="개인정보 처리방침 자세히 보기">
-                            <i class="fas fa-info-circle"></i>
-                        </button>
-                    </label>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="case-summary">
+                            <span class="case-tag">급여소득자</span>
+                            <h3>4천만원 채무, 월 45만원으로 조정</h3>
+                        </div>
+                        <p class="case-detail">"급여생활자로 연체가 걱정되어 고민하다가 상담을 받았습니다. 4천만원의 채무를 월 45만원씩 3년 변제하는 조건으로 개인회생 인가를 받아 안정적인 생활이 가능해졌습니다."</p>
+                        <div class="client-info">
+                            <span class="client-profile">30대 회사원 P님</span>
+                            <span class="payment-info">월 상환액 45만원</span>
+                        </div>
+                    </div>
                 </div>
-                <button type="submit" class="submit-button" aria-live="polite">
-                    <span>상담 신청하기</span>
-                    <div class="loading-spinner" aria-hidden="true"></div>
-                </button>
-            </form>
+            </div>
+        </section>
+
+        <section id="consultation-section" class="consultation-form">
+            <div class="section-content">
+                <h2>무료 상담 신청</h2>
+                <div class="consultation-benefits">
+                    <div class="benefit-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>모든 상담 무료</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-clock"></i>
+                        <span>30분 이내 답변(주말 제외)</span>
+                    </div>
+                    <div class="benefit-item">
+                        <i class="fas fa-lock"></i>
+                        <span>상담 내용 완벽 보장</span>
+                    </div>
+                </div>
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name" class="visually-hidden">이름</label>
+                        <input type="text" id="name" name="name" required 
+                               minlength="2" maxlength="10"
+                               placeholder="이름을 입력해주세요">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="visually-hidden">연락처</label>
+                        <input type="tel" id="phone" name="phone" required
+                               placeholder="연락처를 입력해주세요">
+                    </div>
+                    <div class="form-group privacy-agreement">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="agreement" name="agreement" required>
+                            <span class="checkmark"></span>
+                            <span class="agreement-text">개인정보 수집 및 이용에 동의합니다</span>
+                            <button type="button" class="privacy-detail-btn">
+                                <i class="fas fa-info-circle"></i>
+                            </button>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <span>상담 신청하기</span>
+                        <div class="loading-spinner" style="display: none;"></div>
+                    </button>
+                </form>
+            </div>
         </section>
     </main>
 
@@ -603,7 +602,7 @@
                 <div class="notice-content">
                     <h3>영업시간 안내</h3>
                     <div class="notice-time">
-                        <span class="status">현재는 영업시간 외입니다</span>
+                        <span class="status">현재는 영업시간이 종료되었습니다</span>
                         <span class="hours"><i class="fas fa-business-time"></i> 평일 09:00 - 18:00</span>
                     </div>
                     <p class="notice-message">상담 신청은 가능하며, 다음 영업일에 순차적으로 연락드리겠습니다.</p>
@@ -615,218 +614,8 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-    <script>
-        (function() {
-            emailjs.init("NwKEG-8OlHeKR20mA");
-        })();
-    </script>
-    <script src="script.js" defer></script>
-    <script>
-        // 이미지 지연 로딩
-        document.addEventListener('DOMContentLoaded', function() {
-            var lazyImages = [].slice.call(document.querySelectorAll("img.lazy"));
-
-            if ("IntersectionObserver" in window) {
-                let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            let lazyImage = entry.target;
-                            lazyImage.src = lazyImage.dataset.src;
-                            lazyImage.classList.remove("lazy");
-                            lazyImageObserver.unobserve(lazyImage);
-                        }
-                    });
-                });
-
-                lazyImages.forEach(function(lazyImage) {
-                    lazyImageObserver.observe(lazyImage);
-                });
-            }
-        });
-
-        // 404 에러 처리
-        window.addEventListener('error', function(e) {
-            if (e.target.tagName === 'IMG') {
-                e.target.src = 'fallback-image.jpg';
-            }
-        }, true);
-    </script>
-    <script>
-        // 이벤트 트래킹 구현
-        document.addEventListener('DOMContentLoaded', function() {
-            // 전화 버튼 클릭 추적
-            document.querySelector('.phone-number').addEventListener('click', function() {
-                gtag('event', 'phone_call', {
-                    'event_category': 'engagement',
-                    'event_label': 'header_phone_button'
-                });
-            });
-
-            // 상담 신청 버튼 클릭 추적
-            document.querySelector('.cta-button').addEventListener('click', function() {
-                gtag('event', 'consultation_request', {
-                    'event_category': 'conversion',
-                    'event_label': 'hero_section'
-                });
-            });
-
-            // 상담 폼 제출 추적
-            document.querySelector('#consultationForm form').addEventListener('submit', function() {
-                gtag('event', 'form_submission', {
-                    'event_category': 'conversion',
-                    'event_label': 'consultation_form'
-                });
-            });
-
-            // FAQ 클릭 추적
-            document.querySelectorAll('.faq-question').forEach(function(faq) {
-                faq.addEventListener('click', function() {
-                    gtag('event', 'faq_click', {
-                        'event_category': 'engagement',
-                        'event_label': this.querySelector('span').textContent
-                    });
-                });
-            });
-
-            // 스크롤 깊이 추적
-            let scrollDepthTriggered = new Set();
-            window.addEventListener('scroll', function() {
-                const scrollPercent = (window.scrollY + window.innerHeight) / document.documentElement.scrollHeight * 100;
-                const depths = [25, 50, 75, 100];
-                
-                depths.forEach(depth => {
-                    if (scrollPercent >= depth && !scrollDepthTriggered.has(depth)) {
-                        scrollDepthTriggered.add(depth);
-                        gtag('event', 'scroll_depth', {
-                            'event_category': 'engagement',
-                            'event_label': `${depth}%_scroll_depth`
-                        });
-                    }
-                });
-            });
-
-            // 체류 시간 추적
-            let startTime = Date.now();
-            let timeIntervals = [30, 60, 120, 300]; // 초 단위
-            let triggeredIntervals = new Set();
-
-            setInterval(function() {
-                let timeSpent = Math.floor((Date.now() - startTime) / 1000);
-                timeIntervals.forEach(interval => {
-                    if (timeSpent >= interval && !triggeredIntervals.has(interval)) {
-                        triggeredIntervals.add(interval);
-                        gtag('event', 'time_spent', {
-                            'event_category': 'engagement',
-                            'event_label': `${interval}s_on_site`
-                        });
-                    }
-                });
-            }, 1000);
-        });
-
-        // 외부 링크 클릭 추적
-        document.querySelectorAll('a[href^="http"]').forEach(function(link) {
-            link.addEventListener('click', function() {
-                gtag('event', 'external_link_click', {
-                    'event_category': 'outbound',
-                    'event_label': this.href
-                });
-            });
-        });
-
-        // 상담 섹션 버튼 클릭 이벤트 트래킹 추가
-        document.querySelector('.consultation-form .cta-button').addEventListener('click', function() {
-            gtag('event', 'consultation_section_button_click', {
-                'event_category': 'conversion',
-                'event_label': 'consultation_section_cta',
-                'value': 1
-            });
-        });
-
-        // 상담 폼 입력 필드 추적
-        const formInputs = document.querySelectorAll('.consultation-form input, .consultation-form textarea');
-        formInputs.forEach(input => {
-            input.addEventListener('focus', function() {
-                gtag('event', 'form_field_focus', {
-                    'event_category': 'form_interaction',
-                    'event_label': input.name || input.id
-                });
-            });
-        });
-
-        // 상담 폼 작성 진행률 추적
-        let formProgress = new Set();
-        formInputs.forEach(input => {
-            input.addEventListener('change', function() {
-                if (input.value.trim() !== '') {
-                    formProgress.add(input.name || input.id);
-                    const progressPercent = (formProgress.size / formInputs.length) * 100;
-                    
-                    gtag('event', 'form_completion_progress', {
-                        'event_category': 'form_interaction',
-                        'event_label': 'form_progress',
-                        'value': Math.round(progressPercent)
-                    });
-                }
-            });
-        });
-    </script>
-    <script>
-        // CSRF 토큰 생성
-        function generateCSRFToken() {
-            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-                var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-                return v.toString(16);
-            });
-        }
-
-        // XSS 방지를 위한 입력값 sanitization
-        function sanitizeInput(input) {
-            return input.replace(/[<>]/g, '');
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            // CSRF 토큰 설정
-            const csrfToken = generateCSRFToken();
-            document.querySelector('#consultationForm').dataset.csrf = csrfToken;
-
-            // 폼 입력값 검증 및 sanitization
-            const form = document.querySelector('#consultationForm');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const formData = new FormData(form);
-                for (let [key, value] of formData.entries()) {
-                    formData.set(key, sanitizeInput(value));
-                }
-                // 폼 제출 로직...
-            });
-
-            // A/B 테스트 설정
-            const abTestVersion = Math.random() < 0.5 ? 'A' : 'B';
-            gtag('event', 'ab_test_assignment', {
-                'test_name': 'form_layout',
-                'variant': abTestVersion
-            });
-
-            // 추가된 분석 이벤트
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        gtag('event', 'section_view', {
-                            'event_category': 'engagement',
-                            'event_label': entry.target.id
-                        });
-                    }
-                });
-            });
-
-            // 주요 섹션 뷰 추적
-            ['benefits', 'process', 'faq', 'consultationForm'].forEach(sectionId => {
-                const section = document.getElementById(sectionId);
-                if (section) observer.observe(section);
-            });
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

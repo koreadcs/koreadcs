@@ -1,7 +1,46 @@
+// EmailJS 초기화
+emailjs.init("NwKEG-8OlHeKR20mA");
+
 // 페이지 로드 시 이벤트 리스너 설정
 document.addEventListener('DOMContentLoaded', function() {
-    // EmailJS 초기화
-    emailjs.init("NwKEG-8OlHeKR20mA");
+    // 스크롤 이동 버튼 설정
+    const consultButton = document.querySelector('.cta-button');
+    if (consultButton) {
+        consultButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            const consultSection = document.querySelector('.consultation-form');
+            if (consultSection) {
+                consultSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    }
+
+    // FAQ 아코디언 설정
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            // 다른 FAQ 항목들 닫기
+            faqItems.forEach(otherItem => {
+                if (otherItem !== item && otherItem.classList.contains('active')) {
+                    otherItem.classList.remove('active');
+                    otherItem.querySelector('.faq-answer').style.maxHeight = null;
+                }
+            });
+
+            // 현재 FAQ 항목 토글
+            item.classList.toggle('active');
+            const answer = item.querySelector('.faq-answer');
+            if (item.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                answer.style.maxHeight = null;
+            }
+        });
+    });
 
     // 폼 제출 이벤트 리스너 등록
     const form = document.getElementById('contactForm');
@@ -22,10 +61,23 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // 모달 닫기 버튼 이벤트 리스너
-    document.querySelectorAll('.modal-close').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const modal = e.target.closest('.modal');
-            if (modal) hideModal(modal.id);
+    const modalCloseButtons = document.querySelectorAll('.modal-close');
+    modalCloseButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const modal = button.closest('.modal');
+            if (modal) {
+                hideModal(modal.id);
+            }
+        });
+    });
+
+    // 모달 외부 클릭으로 닫기
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideModal(modal.id);
+            }
         });
     });
 
@@ -33,129 +85,119 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
             const visibleModal = document.querySelector('.modal.show');
-            if (visibleModal) hideModal(visibleModal.id);
-        }
-    });
-
-    // 모달 외부 클릭으로 닫기
-    document.querySelectorAll('.modal').forEach(modal => {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) hideModal(modal.id);
-        });
-    });
-
-    // FAQ 아코디언 기능
-    document.querySelectorAll('.faq-question').forEach(question => {
-        question.addEventListener('click', () => {
-            const faqItem = question.parentElement;
-            const isActive = faqItem.classList.contains('active');
-            
-            // 다른 모든 FAQ 항목 닫기
-            document.querySelectorAll('.faq-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // 클릭된 항목 토글
-            if (!isActive) {
-                faqItem.classList.add('active');
+            if (visibleModal) {
+                hideModal(visibleModal.id);
             }
-        });
-    });
-
-    // 스크롤 시 헤더 스타일 변경
-    window.addEventListener('scroll', function() {
-        const header = document.querySelector('.header');
-        if (window.scrollY > 50) {
-            header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-            header.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
-        } else {
-            header.style.backgroundColor = 'white';
-            header.style.boxShadow = 'none';
         }
     });
 
-    // 통계 숫자 애니메이션
-    function animateNumbers() {
-        const stats = document.querySelectorAll('.stat-number');
-        
-        stats.forEach(stat => {
-            const originalText = stat.textContent;
-            const hasPlus = originalText.includes('+');
-            const hasComma = originalText.includes(',');
-            let target = parseFloat(originalText.replace(/[+,]/g, ''));
-            
-            let current = 0;
-            const increment = target / 50; // 50 steps
-            const duration = 1500; // 1.5 seconds
-            const stepTime = duration / 50;
-            
-            const updateNumber = () => {
-                current += increment;
-                if (current <= target) {
-                    let displayNumber = Math.floor(current);
-                    if (hasComma) {
-                        displayNumber = displayNumber.toLocaleString();
-                    }
-                    if (hasPlus) {
-                        displayNumber = displayNumber + '+';
-                    }
-                    stat.textContent = displayNumber;
-                    setTimeout(updateNumber, stepTime);
-                } else {
-                    stat.textContent = originalText; // 최종적으로 원래 텍스트로 복원
-                }
-            };
-            
-            updateNumber();
-        });
-    }
-
-    // 스크롤 시 통계 애니메이션 실행
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateNumbers();
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-
-    const statistics = document.querySelector('.statistics');
-    if (statistics) {
-        observer.observe(statistics);
-    }
-
-    // 영업시간 체크 및 상태 배지 업데이트
-    function updateBusinessStatus() {
-        const now = new Date();
-        const hours = now.getHours();
-        const day = now.getDay();
-        
-        const statusBadge = document.querySelector('.status-badge');
-        if (!statusBadge) return;
-
-        // 평일(1-5) 및 영업시간(9-18) 체크
-        const isBusinessDay = day >= 1 && day <= 5;
-        const isBusinessHours = hours >= 9 && hours < 18;
-        
-        if (isBusinessDay && isBusinessHours) {
-            statusBadge.textContent = '상담 가능';
-            statusBadge.style.backgroundColor = '#2ecc71';
-        } else {
-            statusBadge.textContent = '상담 종료';
-            statusBadge.style.backgroundColor = '#95a5a6';
-        }
-    }
-
-    // 페이지 로드 시 상태 업데이트
+    // 영업시간 상태 업데이트 시작
     updateBusinessStatus();
     // 1분마다 상태 업데이트
     setInterval(updateBusinessStatus, 60000);
 });
 
-// Toast message functionality
-function showToast(message, type = 'info', duration = 3000) {
-    // Create toast container if it doesn't exist
+// 전화번호 형식 변경 함수
+function formatPhoneNumber(e) {
+    const input = e.target;
+    let value = input.value.replace(/\D/g, '');
+    
+    if (value.length >= 3) {
+        value = value.slice(0, 3) + '-' + value.slice(3);
+    }
+    if (value.length >= 8) {
+        value = value.slice(0, 8) + '-' + value.slice(8);
+    }
+    if (value.length > 13) {
+        value = value.slice(0, 13);
+    }
+    
+    input.value = value;
+}
+
+// 폼 제출 처리 함수
+async function handleSubmit(event) {
+    event.preventDefault();
+
+    // 영업시간이 아닐 경우 모달 표시
+    if (!isBusinessHours()) {
+        showModal('officeHoursModal');
+    }
+
+    const submitButton = event.target.querySelector('button[type="submit"]');
+    const spinner = submitButton.querySelector('.loading-spinner');
+    
+    // 버튼 비활성화 및 로딩 표시
+    submitButton.disabled = true;
+    spinner.style.display = 'inline-block';
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    const agreement = document.getElementById('agreement').checked;
+
+    // 기본적인 유효성 검사
+    if (!name || name.length < 2) {
+        showToast('이름을 올바르게 입력해주세요.', 'error');
+        submitButton.disabled = false;
+        spinner.style.display = 'none';
+        return;
+    }
+    
+    if (!phone || !/^010-\d{4}-\d{4}$/.test(phone)) {
+        showToast('올바른 휴대폰 번호를 입력해주세요.', 'error');
+        submitButton.disabled = false;
+        spinner.style.display = 'none';
+        return;
+    }
+
+    if (!agreement) {
+        showToast('개인정보 수집 및 이용에 동의해주세요.', 'error');
+        submitButton.disabled = false;
+        spinner.style.display = 'none';
+        return;
+    }
+
+    const formData = {
+        name: name,
+        phone: phone,
+        agreement: agreement
+    };
+
+    try {
+        // EmailJS로 메일 전송
+        await emailjs.send("service_59b8f2h", "template_eqnti8r", {
+            from_name: formData.name,
+            phone: formData.phone,
+            agreement: formData.agreement ? "동의" : "미동의"
+        });
+
+        // 구글 스프레드시트로 데이터 전송
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1tB-OR89BsliJjV2osY8mLx77zrwlAv-3596lecVvWa3V9--VJ-LwcZZrBgDU3U4rEA/exec';
+        await fetch(GOOGLE_SCRIPT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        // 성공 메시지 표시
+        showToast('상담 신청이 완료되었습니다.', 'success');
+        event.target.reset();
+    } catch (error) {
+        console.error('Error:', error);
+        showToast('상담 신청 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
+    } finally {
+        // 버튼 활성화 및 로딩 제거
+        submitButton.disabled = false;
+        spinner.style.display = 'none';
+    }
+}
+
+// 토스트 메시지 표시 함수
+function showToast(message, type = 'info') {
+    // 기존 토스트 컨테이너 찾기 또는 생성
     let container = document.querySelector('.toast-container');
     if (!container) {
         container = document.createElement('div');
@@ -163,11 +205,11 @@ function showToast(message, type = 'info', duration = 3000) {
         document.body.appendChild(container);
     }
 
-    // Create toast element
+    // 토스트 엘리먼트 생성
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     
-    // Add icon based on type
+    // 아이콘 추가
     const icon = document.createElement('i');
     switch(type) {
         case 'success':
@@ -176,51 +218,45 @@ function showToast(message, type = 'info', duration = 3000) {
         case 'error':
             icon.className = 'fas fa-exclamation-circle';
             break;
-        case 'warning':
-            icon.className = 'fas fa-exclamation-triangle';
-            break;
         default:
             icon.className = 'fas fa-info-circle';
     }
     
-    // Create message element
+    // 메시지 엘리먼트 생성
     const messageElement = document.createElement('span');
     messageElement.textContent = message;
     
-    // Append elements to toast
+    // 토스트에 요소들 추가
     toast.appendChild(icon);
     toast.appendChild(messageElement);
-    
-    // Add toast to container
     container.appendChild(toast);
-    
-    // Trigger animation
-    requestAnimationFrame(() => {
-        toast.style.opacity = '1';
-        toast.style.transform = 'translateY(0)';
-    });
 
-    // Remove toast after duration
+    // 애니메이션 시작 - 50ms로 단축
     setTimeout(() => {
-        toast.style.animation = 'slideOut 0.3s ease-out forwards';
+        toast.classList.add('show');
+    }, 50);
+
+    // 5초 후 제거 (3초에서 5초로 변경)
+    setTimeout(() => {
+        toast.classList.remove('show');
         setTimeout(() => {
             container.removeChild(toast);
             if (container.children.length === 0) {
                 document.body.removeChild(container);
             }
         }, 300);
-    }, duration);
+    }, 5000);
 }
 
+// 모달 표시 함수
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
         modal.classList.add('show');
-        const firstFocusable = modal.querySelector('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
-        if (firstFocusable) firstFocusable.focus();
     }
 }
 
+// 모달 숨기기 함수
 function hideModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
@@ -228,83 +264,24 @@ function hideModal(modalId) {
     }
 }
 
-function formatPhoneNumber(e) {
-    let number = e.target.value.replace(/[^0-9]/g, '');
-    if (number.length > 13) number = number.slice(0, 13);
-    
-    if (number.length > 3 && number.length <= 7) {
-        number = number.substring(0,3) + '-' + number.substring(3);
-    } else if (number.length > 7) {
-        number = number.substring(0,3) + '-' + number.substring(3,7) + '-' + number.substring(7);
-    }
-    e.target.value = number;
-}
-
+// 영업시간 체크 함수
 function isBusinessHours() {
     const now = new Date();
     const hours = now.getHours();
-    const day = now.getDay();
+    const day = now.getDay(); // 0은 일요일, 6은 토요일
     return day >= 1 && day <= 5 && hours >= 9 && hours < 18;
 }
 
-function handleSubmit(event) {
-    event.preventDefault();
-    
-    const form = event.target;
-    const submitButton = form.querySelector('button[type="submit"]');
-    const spinner = submitButton.querySelector('.loading-spinner');
-    
-    // 입력값 가져오기
-    const name = document.getElementById('name').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    
-    // 기본적인 유효성 검사
-    if (!name || name.length < 2) {
-        showToast('이름을 올바르게 입력해주세요.', 'error');
-        return false;
-    }
-    
-    if (!phone || !/^010-\d{4}-\d{4}$/.test(phone)) {
-        showToast('올바른 휴대폰 번호를 입력해주세요.', 'error');
-        return false;
-    }
-    
-    // 영업시간 체크
-    if (!isBusinessHours()) {
-        showModal('officeHoursModal');
-    }
-    
-    // 버튼 비활성화 및 로딩 표시
-    submitButton.disabled = true;
-    spinner.style.display = 'inline-block';
-    
-    // EmailJS를 사용하여 이메일 전송
-    const templateParams = {
-        responses: `성함: {{${name}}}\n연락처: {{${phone}}}`
-    };
+// 영업시간 상태 업데이트 함수
+function updateBusinessStatus() {
+    const statusBadge = document.querySelector('.status-badge');
+    if (!statusBadge) return;
 
-    emailjs.send('service_59b8f2h', 'template_eqnti8r', templateParams)
-        .then(function(response) {
-            console.log('Email sent successfully:', response);
-            showToast('상담 신청이 완료되었습니다. 빠른 시일 내에 연락드리겠습니다.');
-            form.reset();
-        })
-        .catch(function(error) {
-            console.error('EmailJS 전송 실패:', error);
-            showToast('상담 신청 중 오류가 발생했습니다. 다시 시도해주세요.', 'error');
-        })
-        .finally(function() {
-            // 버튼 활성화 및 로딩 제거
-            submitButton.disabled = false;
-            spinner.style.display = 'none';
-        });
-
-    return false;
-}
-
-function scrollToForm() {
-    const form = document.querySelector('.consultation-form');
-    if (form) {
-        form.scrollIntoView({ behavior: 'smooth' });
+    if (isBusinessHours()) {
+        statusBadge.textContent = '상담 가능';
+        statusBadge.style.backgroundColor = '#2ecc71';
+    } else {
+        statusBadge.textContent = '상담 종료';
+        statusBadge.style.backgroundColor = '#95a5a6';
     }
 }
