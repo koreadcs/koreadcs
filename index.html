@@ -567,7 +567,7 @@
                             </button>
                         </label>
                     </div>
-                    <button type="submit" class="submit-button">
+                    <button type="submit" class="submit-button" onclick="fbq('track', 'Lead'); gtag('event', 'click_consultation', {'event_category': 'button', 'event_label': 'consultation_button'});">
                         <span>상담 신청하기</span>
                         <div class="loading-spinner" style="display: none;"></div>
                     </button>
@@ -614,8 +614,6 @@
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

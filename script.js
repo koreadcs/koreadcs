@@ -1,5 +1,5 @@
-// EmailJS 초기화
-emailjs.init("NwKEG-8OlHeKR20mA");
+// EmailJS 초기화 제거
+// emailjs.init("NwKEG-8OlHeKR20mA");
 
 // 페이지 로드 시 이벤트 리스너 설정
 document.addEventListener('DOMContentLoaded', function() {
@@ -164,15 +164,8 @@ async function handleSubmit(event) {
     };
 
     try {
-        // EmailJS로 메일 전송
-        await emailjs.send("service_59b8f2h", "template_eqnti8r", {
-            from_name: formData.name,
-            phone: formData.phone,
-            agreement: formData.agreement ? "동의" : "미동의"
-        });
-
         // 구글 스프레드시트로 데이터 전송
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1tB-OR89BsliJjV2osY8mLx77zrwlAv-3596lecVvWa3V9--VJ-LwcZZrBgDU3U4rEA/exec';
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5NZpOgGJr3rGEqCKMvUg0GnQOoaNtlqpOWK0MaCIjB7k3uu3nFDcrIpZujK8jAWHLtA/exec';
         await fetch(GOOGLE_SCRIPT_URL, {
             method: 'POST',
             mode: 'no-cors',
